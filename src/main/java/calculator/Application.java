@@ -19,11 +19,23 @@ public class Application {
             return 0;
         }
 
-        String[] tokens = input.split(",|:");
+        String delimiter = ",|:";
+        String numbers = input;
+
+        if (input.startsWith("//")) {
+            int index = input.indexOf("\n");
+            if (index == -1) {
+                throw new IllegalArgumentException("[ERROR] 커스텀 구분자 형식이 잘못되었습니다. (예: //;\\n1;2;3)");
+            }
+            delimiter = input.substring(2, index);
+            numbers = input.substring(index + 1);
+        }
+
+        String[] tokens = numbers.split(delimiter);
         int sum = 0;
         for (String token : tokens) {
             sum += Integer.parseInt(token);
         }
-        return sum; // 임시
+        return sum;
     }
 }
