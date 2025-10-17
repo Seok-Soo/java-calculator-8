@@ -10,7 +10,14 @@ public class Application {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
         String input = Console.readLine();
 
-        // 추후 add() 메서드로 분리 예정
-        System.out.println("입력값: " + input);
+        int result = add(input);
+        System.out.println("결과 : " + result);
+    }
+
+    private static int add(String input) {
+        if (input == null || input.isEmpty()) {
+            return 0;
+        }
+        return Integer.parseInt(input); // 임시
     }
 }
