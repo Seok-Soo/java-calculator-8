@@ -6,12 +6,11 @@ public class Application {
         System.out.println("덧셈할 문자열을 입력해 주세요.");
         String input = Console.readLine();
 
-        try {
-            int result = add(input);
-            System.out.println("결과 : " + result);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+
+        int result = add(input);
+        System.out.println("결과 : " + result);
+
+
     }
 
     private static int add(String input) {
@@ -29,25 +28,29 @@ public class Application {
             }
 
             String customDelimiter = input.substring(2, index);
-            delimiter = delimiter + "|" + Pattern.quote(customDelimiter); // 정규식 특수문자 처리
+            delimiter = delimiter + "|" + Pattern.quote(customDelimiter);
             numbers = input.substring(index + 2);
         }
 
         String[] tokens = numbers.split(delimiter);
         int sum = 0;
+
         for (String token : tokens) {
             if (token.isEmpty()) continue;
-            // 잘못된 입력(숫자 외 문자) 처리
-            if (!token.matches("\\d+")) {
+
+            if (!token.matches("-?\\d+")) {
                 throw new IllegalArgumentException("[ERROR] 숫자 이외의 값이 포함되어 있습니다: " + token);
             }
+
             int number = Integer.parseInt(token);
-            // 음수 값 예외 처리
+
             if (number < 0) {
                 throw new IllegalArgumentException("[ERROR] 음수는 입력할 수 없습니다: " + number);
             }
+
             sum += number;
         }
+
         return sum;
     }
 }
